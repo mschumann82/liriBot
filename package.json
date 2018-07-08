@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/mschumann82/liriBot/issues"
   },
-  "homepage": "https://github.com/mschumann82/liriBot#readme"
+  "homepage": "https://github.com/mschumann82/liriBot#readme",
+  "dependencies": {
+    "dot-env": "0.0.1",
+    "dotenv": "^6.0.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.1"
+  }
 }
