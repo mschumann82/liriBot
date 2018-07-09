@@ -1,6 +1,9 @@
 require("dotenv").config();
-require("./keys");
-const Twitter = require('twitter');
+var keys = require("./keys");
+var fs = require('fs');
+var Twitter = require('twitter');
+require('spotify');
+
 
 //var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -14,25 +17,32 @@ switch (commands) {
       break;
     
     case "spotify-this-song":
-      //deposit();
+      //();
       break;
     
     case "movie-this":
-      //withdraw();
+      //();
       break;
     
     case "do-what-it-says":
-      //lotto();
+      //();
       break;
     }
 
     function myTweets() {
                
-          var params = {screen_name: 'nodejs'};
+          var params = {screen_name: 'Mike82163194'};
           client.get('statuses/user_timeline', params, function(error, tweets, response) {
             if (!error) {
               console.log(tweets);
+              
+              for (let i = 0; i < tweets.length; i++) {
+                  console.log(tweets[i].created_at);
+                  console.log(tweets[i].text)
+              }
             }
-            console.log(JSON.stringify(response, null, 2));
+            else {
+                console.log(error);
+            }
           });
     }
