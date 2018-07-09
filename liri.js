@@ -2,14 +2,17 @@ require("dotenv").config();
 var keys = require("./keys");
 var fs = require('fs');
 var Twitter = require('twitter');
-require('spotify');
+require("request");
+var Spotify = require('node-spotify-api');
 
 
-//var spotify = new Spotify(keys.spotify);
+
+var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
 
 const commands = process.argv[2];
+const search = process.argv[3];
 
 switch (commands) {
     case "my-tweets":
@@ -17,7 +20,7 @@ switch (commands) {
       break;
     
     case "spotify-this-song":
-      //();
+      mySpotify();
       break;
     
     case "movie-this":
@@ -45,4 +48,16 @@ switch (commands) {
                 console.log(error);
             }
           });
+    }
+
+    function mySpotify() {
+        spotify.search({ type: 'track', query: search }, function(err, data) {
+            if ( err ) {
+                console.log('Error occurred: ' + err);
+                return;
+            }
+            console.log(data);
+         
+            // Do something with 'data'
+        });
     }
