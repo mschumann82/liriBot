@@ -13,32 +13,40 @@ var client = new Twitter(keys.twitter);
 
 const commands = process.argv[2];
 const search = process.argv[3];
-const nodeArgs = process.argv;
+//const nodeArgs = process.argv;
+
+function doStuff(commands, search) { //functions takes in arguments
 
 switch (commands) {
     case "my-tweets":
-      myTweets();    //---- make functions for each command.
+      myTweets();    
       break;
     
     case "spotify-this-song":
-      mySpotify();
+      if (search === undefined) {
+        search = "Neverender"; // instead of ace of base.
+      }
+      mySpotify(search);
       break;
     
     case "movie-this":
+    if (search === undefined) {
+      search = "Mr. Nobody"; 
+    }
       movie();
       break;
     
     case "do-what-it-says":
-      //();
+      doWhat();
       break;
     }
 
-    function myTweets() {
+    function myTweets() { // function displays last 20 tweets
                
-          var params = {screen_name: 'Mike82163194'};
+          var params = {screen_name: 'Mike82163194', count: 20};
           client.get('statuses/user_timeline', params, function(error, tweets, response) {
             if (!error) {
-              console.log(tweets);
+              //console.log(tweets); dont need to see whole object anymore.
               
               for (let i = 0; i < tweets.length; i++) {
                   console.log(tweets[i].created_at);
@@ -51,7 +59,9 @@ switch (commands) {
           });
     }
 
-    function mySpotify() {
+    function mySpotify() { //function searches for track
+        
+      
         spotify.search({ type: 'track', query: search }, function(err, data) {
             if ( err ) {
                 console.log('Error occurred: ' + err);
@@ -60,24 +70,14 @@ switch (commands) {
             
                 console.log(data.tracks.items[0].artists[0].name);
                 console.log(data.tracks.items[0].name);
-                console.log(data.tracks.items[0].album.name);
                 console.log(data.tracks.items[0].preview_url);
+                console.log(data.tracks.items[0].album.name);
             
-            
-           
         });
     }
 
-    function movie() {
-    //   let movieName = "";
-    //   for (var i = 2; i < nodeArgs.length; i++) {
-    //     if (i > 2 && i < nodeArgs.length) {
-    //     movieName = movieName + "+" + nodeArgs[i];
-    //     }
-    //     else {
-    //         movieName += nodeArgs[i];
-    //     }
-    // }
+    function movie() { // function searches for movie.
+    
     var queryUrl = "http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=trilogy";
 
     
@@ -96,3 +96,21 @@ switch (commands) {
       }
     })
     }
+
+    function doWhat() {
+      fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+          return console.log(error);
+        };
+      
+        var dataArr = data.split(",");
+      
+        doStuff(dataArr[0], dataArr[1]); // passes in text from random as parameters.
+      });
+    }
+
+  }// end of doStuff.
+
+  doStuff(commands, search); // calling functions allows for the parameters to be taken in.
+
+  
