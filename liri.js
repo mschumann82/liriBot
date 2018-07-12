@@ -78,7 +78,7 @@ switch (commands) {
 
     function movie() { // function searches for movie.
     
-    var queryUrl = "http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=trilogy";
+    var queryUrl = "http://www.omdbapi.com/?t=" + search + "&y=&plot=short&tomatoes=true&r=json&apikey=trilogy";
 
     
 
@@ -88,11 +88,12 @@ switch (commands) {
           console.log(JSON.parse(body).Title);
           console.log(JSON.parse(body).Year);
           console.log(JSON.parse(body).imdbRating);
-          console.log(JSON.parse(body).Ratings[0]);
+          console.log(JSON.parse(body).tomatoMeter);
           console.log(JSON.parse(body).Country);
           console.log(JSON.parse(body).Language);
           console.log(JSON.parse(body).Plot);
           console.log(JSON.parse(body).Actors);
+          console.log(JSON.parse(body));
       }
     })
     }
