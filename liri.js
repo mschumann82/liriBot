@@ -16,7 +16,7 @@ const search = process.argv[3];
 //const nodeArgs = process.argv;
 
 function doStuff(commands, search) { //functions takes in arguments
-
+  
 switch (commands) {
     case "my-tweets":
       myTweets();    
@@ -40,6 +40,11 @@ switch (commands) {
       doWhat();
       break;
     }
+
+    fs.appendFile("log.txt", ", -" + commands, function(error, data) {
+      // appends commands to log.txt
+    });
+    
 
     function myTweets() { // function displays last 20 tweets
                
@@ -93,7 +98,7 @@ switch (commands) {
           console.log(JSON.parse(body).Language);
           console.log(JSON.parse(body).Plot);
           console.log(JSON.parse(body).Actors);
-          console.log(JSON.parse(body));
+          
       }
     })
     }
